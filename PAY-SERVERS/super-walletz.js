@@ -1,4 +1,5 @@
 // Simulador de servidor para imitar respuestas de los sistemas de pago ficticios
+const https = require('https');
 const express = require('express');
 const app = express();
 app.use(express.json());
@@ -21,6 +22,11 @@ app.post('/pay', (req, res) => {
 
         let send = () => {
             const axios = require('axios');
+            axios.create({
+                httpsAgent: new https.Agent({
+                  rejectUnauthorized: false
+                })
+              });
             axios.post(callback_url, webhookResponse)
                 .then(() => console.log('Webhook enviado: ', webhookResponse))
                 .catch((error) => console.error('Error enviando webhook: ', error.message));
