@@ -101,11 +101,8 @@ class PayController extends Controller
 
     public function responseSupeWallet(Request $request){
 
-    echo 'Aquiiiii';
-    return;
-
         $id_transaction = $request->transaction_id;
-        $response = $request->transaction_id;
+        $response = $request->status;
         Transacction::where('transaction_id', $id_transaction)
             ->update([
                 'response' => $response
